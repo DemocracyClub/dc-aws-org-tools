@@ -15,30 +15,29 @@ class EachAccount:
     """Iterator or decorator to yield a session for each account in the organization."""
 
     def __init__(self):
-        self.org_client = boto3.client('organizations')
+        self.org_client = boto3.client("organizations")
 
     def list_accounts_raw(self):
         """List all accounts in the organisation in JSON format."""
         accounts = []
-        paginator = self.org_client.get_paginator('list_accounts')
+        paginator = self.org_client.get_paginator("list_accounts")
         for page in paginator.paginate():
-            accounts.extend(page['Accounts'])
+            accounts.extend(page["Accounts"])
         return accounts
 
     def assume_role(self, account_id):
         """Assume role in the target account."""
-        sts_client = boto3.client('sts')
-        role_arn = f'arn:aws:iam::{account_id}:role/OrganizationAccountAccessRole'
+        sts_client = boto3.client("sts")
+        role_arn = f"arn:aws:iam::{account_id}:role/OrganizationAccountAccessRole"
         response = sts_client.assume_role(
-            RoleArn=role_arn,
-            RoleSessionName='OrgAccountSession'
+            RoleArn=role_arn, RoleSessionName="OrgAccountSession"
         )
-        credentials = response['Credentials']
+        credentials = response["Credentials"]
         return boto3.Session(
-            aws_access_key_id=credentials['AccessKeyId'],
-            aws_secret_access_key=credentials['SecretAccessKey'],
-            aws_session_token=credentials['SessionToken'],
-            region_name="eu-west-2"
+            aws_access_key_id=credentials["AccessKeyId"],
+            aws_secret_access_key=credentials["SecretAccessKey"],
+            aws_session_token=credentials["SessionToken"],
+            region_name="eu-west-2",
         )
 
     def __iter__(self) -> AWSAccount:
@@ -46,8 +45,8 @@ class EachAccount:
         for raw_account in raw_accounts:
             if raw_account["Name"] == "Root Root - DC":
                 continue
-            if raw_account['Status'] == 'ACTIVE':
-                session = self.assume_role(raw_account['Id'])
+            if raw_account["Status"] == "ACTIVE":
+                session = self.assume_role(raw_account["Id"])
                 yield AWSAccount(name=raw_account["Name"], session=session)
 
     def __call__(self, func):
