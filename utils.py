@@ -1,5 +1,6 @@
 import functools
 from dataclasses import dataclass
+from typing import Any
 
 import boto3
 
@@ -56,3 +57,28 @@ class EachAccount:
                 func(session, *args, **kwargs)
 
         return wrapper
+
+
+PER_RUN_VALUES = set()
+
+
+def once_per_run(value: Any) -> bool:
+    """
+    Because @EachAccount ends up calling the function once per AWS account,
+    it can be hard to print a single value once per run, e.g the header row of a CSV.
+
+    This util stores values in a set. If it's seen the value before, then it returns False,
+    else True and it will store the fact it's seen the value.
+
+    Use by:
+
+    ```
+    if once_per_run("foo"):
+        // Do a thing once
+
+    ```
+    """
+    if value in PER_RUN_VALUES:
+        return False
+    PER_RUN_VALUES.add(value)
+    return True
