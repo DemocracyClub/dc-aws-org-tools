@@ -9,9 +9,11 @@ param_name = "DC_ENVIRONMENT"
 def check_dc_env_param_set(account):
     ssm_client = account.session.client("ssm")
     try:
-        has_dc_env_set = ssm_client.get_parameter(Name=param_name)["Parameter"]["Value"]
+        has_dc_env_set = ssm_client.get_parameter(Name=param_name)["Parameter"][
+            "Value"
+        ]
     except ClientError as e:
-        if e.response['Error']['Code'] == 'ParameterNotFound':
+        if e.response["Error"]["Code"] == "ParameterNotFound":
             has_dc_env_set = False
         else:
             raise
@@ -23,9 +25,11 @@ def check_dc_env_param_set(account):
 def set_dc_env_values(account):
     ssm_client = account.session.client("ssm")
     try:
-        has_dc_env_set = ssm_client.get_parameter(Name=param_name)["Parameter"]["Value"]
+        has_dc_env_set = ssm_client.get_parameter(Name=param_name)["Parameter"][
+            "Value"
+        ]
     except ClientError as e:
-        if e.response['Error']['Code'] == 'ParameterNotFound':
+        if e.response["Error"]["Code"] == "ParameterNotFound":
             has_dc_env_set = False
         else:
             raise
