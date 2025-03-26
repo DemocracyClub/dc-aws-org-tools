@@ -1,0 +1,25 @@
+[project]
+name = "dc-aws-org-tools"
+version = "0.0.0"
+description = "For working across all AWS accounts in DC"
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "boto3>=1.37.20",
+]
+
+[tool.uv]
+package = false
+
+
+[tool.ruff]
+line-length = 80
+ignore = ["E501"]
+
+extend-select = [
+    "I",
+    "C4",
+    "SIM",
+    "Q003",
+    "RET",
+]

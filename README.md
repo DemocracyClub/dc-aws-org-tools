@@ -8,10 +8,10 @@ checks.
 
 **Install the required packages:**
 
-Requires Python 3.12
+Requires Python 3.12 & uv
 
  ```bash
- pip install -r requirements.txt
+ uv sync
  ```
 
 ## Authentication
@@ -80,5 +80,5 @@ if __name__ == "__main__":
 Run the script using the following command:
 
 ```bash
-python list_s3_buckets.py
+uv run list_s3_buckets.py
 ```
