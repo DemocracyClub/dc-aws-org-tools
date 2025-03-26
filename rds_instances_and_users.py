@@ -40,9 +40,9 @@ def list_all_rds_instances(account):
             out.writeheader()
         out.writerows(rows)
 
+
 @EachAccount()
 def accounts_using_each_rds_in_ssm(account):
-
     out = csv.DictWriter(
         sys.stdout,
         fieldnames=[
@@ -59,7 +59,9 @@ def accounts_using_each_rds_in_ssm(account):
         for param in page["Parameters"]:
             param_name = param["Name"]
 
-            response = ssm_client.get_parameter(Name=param_name, WithDecryption=True)
+            response = ssm_client.get_parameter(
+                Name=param_name, WithDecryption=True
+            )
             param_value = response["Parameter"]["Value"]
 
             # Check if the parameter name contains any of the search strings
