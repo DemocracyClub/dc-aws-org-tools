@@ -28,9 +28,7 @@ class EachAccount:
     def assume_role(self, account_id):
         """Assume role in the target account."""
         sts_client = boto3.client("sts")
-        role_arn = (
-            f"arn:aws:iam::{account_id}:role/OrganizationAccountAccessRole"
-        )
+        role_arn = f"arn:aws:iam::{account_id}:role/OrganizationAccountAccessRole"
         response = sts_client.assume_role(
             RoleArn=role_arn, RoleSessionName="OrgAccountSession"
         )
