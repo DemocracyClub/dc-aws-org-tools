@@ -1,5 +1,4 @@
 from botocore.exceptions import ClientError
-
 from utils import EachAccount
 
 param_name = "DC_ENVIRONMENT"
