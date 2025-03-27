@@ -8,6 +8,7 @@ import boto3
 @dataclass
 class AWSAccount:
     name: str
+    account_id: str
     session: boto3.Session
 
 
@@ -28,7 +29,9 @@ class EachAccount:
     def assume_role(self, account_id):
         """Assume role in the target account."""
         sts_client = boto3.client("sts")
-        role_arn = f"arn:aws:iam::{account_id}:role/OrganizationAccountAccessRole"
+        role_arn = (
+            f"arn:aws:iam::{account_id}:role/OrganizationAccountAccessRole"
+        )
         response = sts_client.assume_role(
             RoleArn=role_arn, RoleSessionName="OrgAccountSession"
         )
@@ -47,7 +50,11 @@ class EachAccount:
                 continue
             if raw_account["Status"] == "ACTIVE":
                 session = self.assume_role(raw_account["Id"])
-                yield AWSAccount(name=raw_account["Name"], session=session)
+                yield AWSAccount(
+                    name=raw_account["Name"],
+                    account_id=raw_account["Id"],
+                    session=session,
+                )
 
     def __call__(self, func):
         @functools.wraps(func)
