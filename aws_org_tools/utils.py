@@ -24,7 +24,26 @@ class EachAccount:
         paginator = self.org_client.get_paginator("list_accounts")
         for page in paginator.paginate():
             accounts.extend(page["Accounts"])
-        return accounts
+        return self.sort_accounts(accounts)
+
+    def sort_accounts(self, accounts):
+        std_accounts = [
+            a
+            for a in accounts
+            if len(a["Name"].split(" - ")) == 3
+            and "legacy" not in a["Name"].lower()
+        ]
+        special_accounts = [a for a in accounts if a not in std_accounts]
+        env_sort_order = {"dev": 1, "staging": 2, "production": 3}
+        std_accounts.sort(
+            key=lambda account: (
+                account["Name"].split(" - ")[2],
+                account["Name"].split(" - ")[1],
+                env_sort_order.get(account["Name"].split(" - ")[0].lower(), 4),
+            )
+        )
+        assert len(accounts) == len(std_accounts) + len(special_accounts)
+        return std_accounts + special_accounts
 
     def assume_role(self, account_id):
         """Assume role in the target account."""
