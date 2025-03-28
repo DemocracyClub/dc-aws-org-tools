@@ -1,0 +1,24 @@
+name: Build and Test
+
+on: push
+
+permissions: {}
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Python setup
+        uses: ./.github/actions/python-setup
+
+      - name: Check Workflows
+        run: uvx zizmor .
+
+      - name: Pre-test checks
+        run: uv run scripts/code-check
