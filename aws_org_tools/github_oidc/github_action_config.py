@@ -5,10 +5,12 @@ from dataclasses import dataclass
 class GithubActionsConfig:
     repo_name: str
     github_org: str = "DemocracyClub"
+    policy_file: str = None
 
 
 dc_data_baker_config = GithubActionsConfig(
     repo_name="dc-data-baker",
+    policy_file="dc-data-baker.json",
 )
 
 
