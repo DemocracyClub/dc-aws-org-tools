@@ -64,6 +64,9 @@ def configure_github_oicd_provider(account):
 
         attach_role_policy(iam_client, role_name)
 
+        if repo.policy_file:
+            attach_role_policy_from_file(iam_client, role_name, repo)
+
 
 def create_github_oidc_provider(
     iam_client, account_name, account_id, github_oidc_url, client_ids=None
@@ -176,6 +179,24 @@ def attach_role_policy(iam_client, role_name):
                     ],
                 }
             ),
+        )
+        print(f"    put {policy_name} on role {role_name}")
+    except Exception as e:
+        raise Exception(
+            f"Error putting policy {policy_name} on role {role_name}"
+        ) from e
+
+
+def attach_role_policy_from_file(iam_client, role_name, repo):
+    policy_name = f"{repo.repo_name.replace(' ', '-')}-extra-policy"
+    document = json.load(
+        (Path(__file__).parent / "policies" / repo.policy_file).open()
+    )
+    try:
+        iam_client.put_role_policy(
+            RoleName=role_name,
+            PolicyName=policy_name,
+            PolicyDocument=json.dumps(document),
         )
         print(f"    put {policy_name} on role {role_name}")
     except Exception as e:
