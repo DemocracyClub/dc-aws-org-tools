@@ -13,6 +13,8 @@ dc_data_baker_config = GithubActionsConfig(
     policy_file="dc-data-baker.json",
 )
 
+dc_logging_config = GithubActionsConfig(repo_name="dc_logging")
+
 
 GITHUB_ACTIONS_PERMISSIONS = {
     "Staging - API - EC": [],
@@ -26,6 +28,8 @@ GITHUB_ACTIONS_PERMISSIONS = {
     "Production - Every Election - DC": [],
     "Dev - Every Election - DC": [],
     "Staging - Every Election - DC": [],
+    "Dev - Monitoring - DC": [dc_logging_config],
+    "Production - Monitoring - DC": [dc_logging_config],
     "Dev - Postcode Lookup - EC": [],
     "Staging - Postcode Lookup - EC": [],
     "Production - Postcode Lookup - EC": [],
