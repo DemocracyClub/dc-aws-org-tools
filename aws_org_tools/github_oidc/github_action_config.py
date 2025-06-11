@@ -13,7 +13,9 @@ dc_data_baker_config = GithubActionsConfig(
     policy_file="dc-data-baker.json",
 )
 
-dc_logging_config = GithubActionsConfig(repo_name="dc_logging")
+dc_logging_config = GithubActionsConfig(
+    repo_name="dc_logging", policy_file="dc_logging.json"
+)
 
 
 GITHUB_ACTIONS_PERMISSIONS = {
