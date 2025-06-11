@@ -15,6 +15,7 @@ In practical terms when setting up aws auth from github actions in a new reposit
 * Locally authenticate to the root org account
 * run `uv run aws_org_tools/github_oidc/create_github_action_identity_providers.py`
 * Look at the output, and grab the arn for the relevant role.
+  * eg arn:aws:iam::1234567890:role/<name-of-role>
 * Go to the github repository where you're setting up github actions.
   * create an environment that corresponds to the aws account you want to auth to.
   * Add this arn to the secrets in that environment.
