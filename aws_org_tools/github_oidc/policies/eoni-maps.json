@@ -209,6 +209,15 @@
       "Resource": [
         "arn:aws:events:*:*:rule/eoni-maps-*"
       ]
+    },
+    {
+      "Sid": "ECRPublicAuth",
+      "Effect": "Allow",
+      "Action": [
+        "ecr-public:GetAuthorizationToken",
+        "sts:GetServiceBearerToken"
+      ],
+      "Resource": "*"
     }
   ]
 }
