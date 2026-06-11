@@ -9,6 +9,8 @@
       ],
       "Resource": [
         "arn:aws:s3:::eoni-demo-temp",
+        "arn:aws:s3:::stage.eoni-maps",
+        "arn:aws:s3:::eoni-maps",
         "arn:aws:s3:::eoni-data.wheredoivote.co.uk.production",
         "arn:aws:s3:::pollingstations.*.data"
       ]
@@ -24,6 +26,8 @@
       ],
       "Resource": [
         "arn:aws:s3:::eoni-demo-temp/*",
+        "arn:aws:s3:::stage.eoni-maps/*",
+        "arn:aws:s3:::eoni-maps/*",
         "arn:aws:s3:::eoni-data.wheredoivote.co.uk.production/*",
         "arn:aws:s3:::pollingstations.*.data/osni/*"
       ]
@@ -150,6 +154,10 @@
       "Effect": "Allow",
       "Action": [
         "cloudfront:CreateDistribution",
+        "cloudfront:GetFunction",
+        "cloudfront:DescribeFunction",
+        "cloudfront:UpdateFunction",
+        "cloudfront:PublishFunction",
         "cloudfront:GetDistribution",
         "cloudfront:GetDistributionConfig",
         "cloudfront:UpdateDistribution",
