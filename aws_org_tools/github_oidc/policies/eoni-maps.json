@@ -13,7 +13,8 @@
         "arn:aws:s3:::eoni-maps",
         "arn:aws:s3:::eoni-data.wheredoivote.co.uk.production",
         "arn:aws:s3:::pollingstations.*.data",
-        "arn:aws:s3:::*.nielectoral-maps.wheredoivote.co.uk",
+        "arn:aws:s3:::dev.nielectoral-maps.wheredoivote.co.uk",
+        "arn:aws:s3:::nielectoral-maps.wheredoivote.co.uk",
         "arn:aws:s3:::nielectoral-maps.wdiv.club"
       ]
     },
@@ -32,7 +33,8 @@
         "arn:aws:s3:::eoni-maps/*",
         "arn:aws:s3:::eoni-data.wheredoivote.co.uk.production/*",
         "arn:aws:s3:::pollingstations.*.data/osni/*",
-        "arn:aws:s3:::*.nielectoral-maps.wheredoivote.co.uk/*",
+        "arn:aws:s3:::dev.nielectoral-maps.wheredoivote.co.uk/*",
+        "arn:aws:s3:::nielectoral-maps.wheredoivote.co.uk/*",
         "arn:aws:s3:::nielectoral-maps.wdiv.club/*"
       ]
     },
@@ -55,6 +57,15 @@
         "ssm:GetParameters"
       ],
       "Resource": "arn:aws:ssm:*:*:parameter/eoni-maps/*"
+    },
+    {
+      "Sid": "GetDCEnvParameters",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+      ],
+      "Resource": "arn:aws:ssm:*:*:parameter/DC_ENVIRONMENT"
     },
     {
       "Sid": "CloudFormationAccess",
