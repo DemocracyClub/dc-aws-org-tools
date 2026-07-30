@@ -243,6 +243,20 @@
         "sts:GetServiceBearerToken"
       ],
       "Resource": "*"
+    },
+    {
+      "Sid": "CloudFrontCachePolicies",
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateCachePolicy",
+        "cloudfront:GetCachePolicy",
+        "cloudfront:GetCachePolicyConfig",
+        "cloudfront:UpdateCachePolicy",
+        "cloudfront:DeleteCachePolicy",
+        "cloudfront:ListCachePolicies",
+        "cloudfront:CreateInvalidation"
+      ],
+      "Resource": "*"
     }
   ]
 }
