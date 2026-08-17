@@ -17,6 +17,10 @@ dc_logging_config = GithubActionsConfig(
     repo_name="dc_logging", policy_file="dc_logging.json"
 )
 
+eoni_maps_config = GithubActionsConfig(
+    repo_name="eoni-maps", policy_file="eoni-maps.json"
+)
+
 
 GITHUB_ACTIONS_PERMISSIONS = {
     "Staging - API - EC": [],
@@ -35,9 +39,9 @@ GITHUB_ACTIONS_PERMISSIONS = {
     "Dev - Postcode Lookup - EC": [],
     "Staging - Postcode Lookup - EC": [],
     "Production - Postcode Lookup - EC": [],
-    "Staging - Where Do I Vote - DC": [],
-    "Dev - Where Do I Vote - DC": [],
-    "Production - Where Do I Vote - DC": [],
+    "Staging - Where Do I Vote - DC": [eoni_maps_config],
+    "Dev - Where Do I Vote - DC": [eoni_maps_config],
+    "Production - Where Do I Vote - DC": [eoni_maps_config],
     "Staging - Who Can I Vote For - DC": [],
     "Production - Who Can I Vote For - DC": [],
     "Dev - Who Can I Vote For - DC": [],
