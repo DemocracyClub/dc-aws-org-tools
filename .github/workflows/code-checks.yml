@@ -15,7 +15,7 @@ jobs:
           persist-credentials: false
 
       - name: Python setup
-        uses: ./.github/actions/python-setup
+        uses: $/.github/actions/python-setup
 
       - name: Check Workflows
         run: uvx zizmor .
